@@ -1,0 +1,259 @@
+﻿@using CheaperMarket.Models
+
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<title>cheaperMarket</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+
+<!-- Bootstrap core CSS -->
+<link href="/Content/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Material Design Bootstrap -->
+<link href="/Content/css/mdb.min.css" rel="stylesheet">
+
+<!-- Template styles -->
+<style rel="stylesheet">
+    /* TEMPLATE STYLES */
+
+    main {
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+    }
+
+    .widget-wrapper {
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 2rem;
+    }
+
+    .reviews {
+        text-align: center;
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .price {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin-top: -2px;
+    }
+
+        .price .tag {
+            margin: 0;
+        }
+
+    .navbar {
+        background-color:cornflowerblue
+    }
+
+    footer.page-footer {
+        background-color: #676b74;
+        margin-top: 2rem;
+    }
+</style>
+
+</head>
+<body>
+
+
+    <header>
+
+        <!--Navbar-->
+        <nav class="navbar navbar-toggleable-md navbar-dark">
+            <div class="container">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav1">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/Home/Index">CheaperMarket<span class="sr-only">(current)</span></a>
+                        </li>
+                       
+                        <li>
+                                <form action="/Produits/findByLabel" method="post" class="form-inline" style="margin-left:80px;">
+                                    <div class="search">
+                                        <input name="label" type="text" class="form-control input-sm" maxlength="64" placeholder="Search" />
+                                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                                    </div>
+                                  </form>
+                        </li>
+       
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+        <!--/.Navbar-->
+
+    </header>
+
+    <main>
+
+        <!--Main layout-->
+
+
+
+        <div class="container">
+            <div class="row">
+
+                <!--Sidebar-->
+                <div class="col-lg-4 wow fadeIn" data-wow-delay="0.2s">
+    
+                    <div class="widget-wrapper">
+                        <div class="list-group">
+@if (Request.IsAuthenticated)
+{
+    UserDal dal = new UserDal();
+    UserInstance us = dal.findByUserName(User.Identity.Name);
+
+    if (us.UserType == "Fournisseur")
+    {
+                               <a href="/Approvisionnements/Index" class="list-group-item active">Approvisionnements</a>
+                                <a href="/Home/Index" class="list-group-item">Produits</a>
+                                <a href="/Historiques/Index" class="list-group-item">Historiques</a>
+
+    }
+    else if (us.UserType == "Client")
+    {
+                                <a href="/Commandes/Index" class="list-group-item active">Commandes</a>
+                                <a href="/Home/Index" class="list-group-item">Produits</a>
+                                <a href="/Historiques/Index" class="list-group-item">Historiques</a>
+
+    }
+    else if (us.UserType == "Agent")
+    {
+                               <a href="/Livraisons/Index" class="list-group-item active">Livraisons</a>
+                               <a href="/Home/Index" class="list-group-item">Produits</a>
+                               <a href="/Historiques/Index" class="list-group-item">Historiques</a>
+
+    }
+    else if (us.UserType == "Admin")
+    {
+                                <a href="/Commandes/Index" class="list-group-item active">Commandes</a>
+                                <a href="/Livraisons/Index" class="list-group-item">Livraisons</a>
+                                <a href="/Approvisionnements/Index" class="list-group-item">Approvisionnements</a>
+                                <a href="/Home/Index" class="list-group-item">Produits</a>
+                                <a href="/Historiques/Index" class="list-group-item">Historiques</a>
+
+    }
+}
+else
+{
+    <a href="/Home/Index" class="list-group-item">Produits</a>
+
+}
+                  </div>
+                    </div>
+
+                    <div class="widget-wrapper wow fadeIn" data-wow-delay="0.4s">
+                        <h4>Subscription form:</h4>
+                        <br>
+                        <div class="card">
+                            <div class="card-block">
+                                <h4>About CheaperMarket</h4>
+                                <p>CheaperMarket est une plateforme de vente en ligne</p>
+                                <div class="md-form">
+                                    <i class="fa fa-user prefix"></i>
+                                    <input type="text" id="form1" class="form-control">
+                                    <label for="form1">Your name</label>
+                                </div>
+                                <div class="md-form">
+                                    <i class="fa fa-envelope prefix"></i>
+                                    <input type="text" id="form2" class="form-control">
+                                    <label for="form2">Your email</label>
+                                </div>
+                                <button class="btn btn-primary">Submit</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--/.Sidebar-->
+                <!--Main column-->
+                <div class="col-lg-8">
+
+                   
+                    <!--/.First row-->
+                    <!--Second row-->
+                    <div class="row">
+
+                        <!--Heading-->
+                        <div class="col reviews wow fadeIn" data-wow-delay="0.4s">
+                            @RenderBody()
+                        </div>
+            
+                    <!--/.Second row-->
+
+                </div>
+                <!--/.Main column-->
+
+            </div>
+        </div>
+        <!--/.Main layout-->
+     </div>
+   </main>
+
+    <!--Footer-->
+    <footer class="page-footer center-on-small-only">
+
+        <!--/.Footer Links-->
+
+        <hr>
+
+        <!--Call to action-->
+        <div class="call-to-action">
+            <h4>Material Design for Bootstrap</h4>
+            <ul>
+                <li>
+                    <h5>Get our UI KIT for free</h5>
+                </li>
+                <li><a target="_blank" href="http://mdbootstrap.com/getting-started/" class="btn btn-primary" rel="nofollow">Sign up!</a></li>
+                <li><a target="_blank" href="http://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default" rel="nofollow">Learn more</a></li>
+            </ul>
+        </div>
+        <!--/.Call to action-->
+        <!--Copyright-->
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                © 2015 Copyright: <a href="http://www.MDBootstrap.com"> MDBootstrap.com </a>
+
+            </div>
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+ 
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/Content/js/jquery-2.2.3.min.js"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/Content/js/tether.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/Content/js/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/Conetent/js/mdb.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        new WOW().init();
+    </script>
+
+</body>
+
+</html>

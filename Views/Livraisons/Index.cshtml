@@ -1,0 +1,59 @@
+﻿ @using CheaperMarket.Models
+@model CheaperMarket.Models.CommandeViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.CommandesEnCours.Count != 0)
+{
+    <h5> Les commandes suivantes sont en attente de livraison</h5><hr />
+}else
+{
+    <h5>Il n'y a pas de commandes en attente</h5>
+}
+
+       @foreach (var cm in Model.CommandesEnCours)
+       {
+
+    <div class="row" style="background-color:lavenderblush;">
+        <div class="col-3"><b>Date de la commande</b> @cm.dateC</div> |
+        <div class="col-2"><b>Etat de la commande </b><span class="alert-info">@cm.statut </span> </div><br />
+        <div class="col-3"><b>Produit commandé</b> @cm.Produit.label</div> |
+        <div class="col-2"><b>Catégorie de produit </b>@cm.Produit.categorie </div><br />
+        <div class="col-3"><b>Quantité commandée </b> @cm.quantite</div> |
+        <div class="col-2"><b>Prix Unitaire </b>@cm.Produit.prix </div><br />
+        <div class="col-3"><b>Code du Client </b> @cm.client.code</div>
+        <div class="col-3"><b>Adresse de livraison </b> @cm.adresse</div>
+         @if (Model.user.UserType == "Agent")
+         {
+            <div class="col-3"><p>vous pouvez confirmer la livraison <a href="/Livraisons/Confirmer/@cm.id"><b>ici</b></a></p></div>
+         }
+         </div><hr />
+       }
+@if (Model.CommandesLivrees.Count != 0)
+{
+    <h5> Les commandes suivantes ont été livrées</h5><hr />
+}
+else
+{
+    <h5> Il n'ya pas de commandes livrées</h5><hr />
+}
+
+@foreach (var cm in Model.CommandesLivrees)
+{
+
+    <div class="row" style="background-color:lavenderblush;">
+        <div class="col-3"><b>Date de la livraison</b> @cm.dateC.Date</div> |
+        <div class="col-2 "><b>Etat de la commande</b><span class="alert-success">@cm.statut </span></div><br />
+        <div class="col-3"><b>Produit commandé</b> @cm.Produit.label</div> |
+        <div class="col-2"><b>Catégorie de produit </b>@cm.Produit.categorie </div><br />
+        <div class="col-3"><b>Quantité commandée </b> @cm.quantite</div> |
+        <div class="col-2"><b>Prix Unitaire </b>@cm.Produit.prix </div><br />
+        <div class="col-3"><b>Code du Client </b> @cm.client.code</div>
+        <div class="col-3"><b>Adresse de livraison </b> @cm.adresse</div>      
+    </div><hr />
+}
+
+   
+

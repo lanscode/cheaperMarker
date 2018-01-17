@@ -1,0 +1,22 @@
+﻿
+@model CheaperMarket.Models.CommandeViewModel
+@{
+    ViewBag.Title = "Confirmer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>Vos informations seront associées à cette livraison?</h3>
+<div>
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="confirmer" class="btn btn-default" /> |
+            @Html.ActionLink("Toutes les livraisons", "Index")
+        </div>
+    }
+</div>

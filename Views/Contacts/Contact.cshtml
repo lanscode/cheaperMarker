@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Contact</h2>
+
+@using (Html.BeginForm("Fournisseur", "Contacts", FormMethod.Post, new { @class = "horizontal-form", role = "form" }))
+{ 
+  @Html.AntiForgeryToken()
+    <h4>Contact un Fournisseur</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class="text-danger"})
+    <div class="form-group row">
+        <label class="col-sm-4 col-md-4 control-label">Produit : </label>
+        <div class="col-sm-6 col-md-6 ">
+            <select name="produit" class="form-control">
+                @if (ViewBag["categorie"] == "pc")
+                {
+                    foreach (var produit in Model.Pcs)
+                    {
+                        <option value="@produit.id">@produit.label</option>
+                    }
+                }
+                else if (ViewBag["categorie"] == "watch")
+                {
+                    foreach (var produit in Model.Watchs)
+                    {
+                        <option value="@produit.id">@produit.label</option>
+                    }
+                }
+                else
+                {
+                    foreach (var produit in Model.Phones)
+                    {
+                        <option value="@produit.id">@produit.label</option>
+                    }
+                }
+
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label for="message" class="control-label">Message :</label>
+        </div>
+        <div class="col-8 form-control">
+            <textarea rows="10" columns="20" name="message">Contact.message</textarea>
+        </div>
+    </div>
+}

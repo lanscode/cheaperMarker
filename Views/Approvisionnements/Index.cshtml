@@ -1,0 +1,41 @@
+﻿@model CheaperMarket.Models.ApprovisionnementViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+@if (Model.user.UserType=="Fournisseur")
+{
+    <div class="col-6">Vous avez effectué les approvisionnements suivants: </div><br />
+    foreach (var ap in Model.Approvisionnements)
+    {
+        <div class="row" style="background-color:lavenderblush;">  
+            <!--<div class="col-3"><b>Date d'approvisionnement </b> ap.dateA</div> |-->
+            <div class="col-2"><b>Produit approvisionné </b>@ap.Produit.label</div><br />
+            <div class="col-2"><b>Catégorie de produit </b>@ap.Produit.categorie </div>|
+            <div class="col-2"><b>Quantité approvisionnée </b> @ap.quantite</div> |
+           
+        </div><hr />
+    }
+}
+@if (Model.user.UserType=="Admin")
+{
+    <div class="col-12">Les approvisionnements suivants ont été éffectués</div><br />
+    foreach (var ap in Model.Approvisionnements)
+    {
+        <div class="row" style="background-color:lavenderblush;">
+            <!--<div class="col-3"><b>Date d'approvisionnement </b> ap.dateA</div> |-->
+            <div class="col-2"><b>Produit approvisionné </b>@ap.Produit.label</div><br />
+            <div class="col-2"><b>Catégorie de produit </b>@ap.Produit.categorie </div>|
+            <div class="col-2"><b>Quantité approvisionnée </b> @ap.quantite</div> <br />
+            <div class="col-2"><b>Fournisseur </b>@ap.Fournisseur.code</div>
+        </div><hr />
+    }
+}
+
+
+
+
+
+

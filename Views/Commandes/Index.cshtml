@@ -1,0 +1,52 @@
+﻿
+@model CheaperMarket.Models.CommandeViewModel
+
+@{
+    ViewBag.Title = "Espace de Gestion des Commandes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<hr />
+   @if (Model.user.UserType=="Client")
+   {
+    <div class="col-12">Vous avez effectué les commandes suivantes: </div><br />
+       foreach (var cm in Model.CommandeByClient)
+       {
+        <div class="row" style="background-color:lavenderblush;">
+            
+            <div class="col-3"><b>Date de la commande</b> @cm.dateC.Date</div> |
+            <div class="col-2"><b>Etat de la commande </b>@cm.statut </div><br />
+            <div class="col-3"><b>Produit commandé</b> @cm.Produit.label</div> |
+            <div class="col-2"><b>Catégorie de produit </b>@cm.Produit.categorie </div><br />
+            <div class="col-3"><b>Quantité commandée </b> @cm.quantite</div> |
+            <div class="col-2"><b>Prix Unitaire </b>@cm.Produit.prix </div><br />
+            <div class="col-3"><b>Adresse de livraison </b> @cm.adresse</div> 
+            <div class="col-3"></div>
+        </div><hr />
+       }
+   }
+   else 
+   {
+    <h5> Les Commandes Effectuées</h5>
+       foreach (var cm in Model.AllCommandes)
+       {
+
+        <div class="row" style="background-color:lavenderblush;">
+            <div class="col-3"><b>Date de la commande</b> @cm.dateC.Date</div> |
+            <div class="col-2"><b>Etat de la commande </b>@cm.statut </div><br />
+            <div class="col-3"><b>Produit commandé</b> @cm.Produit.label</div> |
+            <div class="col-2"><b>Catégorie de produit </b>@cm.Produit.categorie </div><br />
+            <div class="col-3"><b>Quantité commandée </b> @cm.quantite</div> |
+            <div class="col-2"><b>Prix Unitaire </b>@cm.Produit.prix </div><br />
+            <div class="col-3"><b>Client </b> @cm.client.code</div>
+            <div class="col-3"><b>Adresse de livraison </b> @cm.adresse</div>
+          
+        </div><hr />
+       }
+
+   }
+   
+
+   
